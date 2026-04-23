@@ -1,26 +1,173 @@
-@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --gold: #D4A017;
+  --gold2: #F5C842;
+  --gold3: #FFE57A;
+  --gold-dark: #A87800;
+  --turq: #0ABFBC;
+  --turq2: #06D6D0;
+  --glass: rgba(255,255,255,0.55);
+  --glass2: rgba(255,255,255,0.80);
+  --text: #1A1A2E;
+  --text2: #4A5568;
+  --text3: #718096;
+  --border: rgba(255,255,255,0.75);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: var(--text);
+  background: linear-gradient(135deg, #FFFFFF 0%, #E8FFFE 40%, #C8F8F6 70%, #A8F0EE 100%);
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Syne', sans-serif;
+}
+
+/* Orbes animados */
+.orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0.3;
+  pointer-events: none;
+  animation: float 8s ease-in-out infinite;
+}
+
+.orb-1 {
+  width: 400px;
+  height: 400px;
+  background: #0ABFBC;
+  top: -100px;
+  right: -100px;
+}
+
+.orb-2 {
+  width: 350px;
+  height: 350px;
+  background: #F5C842;
+  bottom: -80px;
+  left: -80px;
+  animation-delay: -4s;
+}
+
+.orb-3 {
+  width: 300px;
+  height: 300px;
+  background: #06D6D0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation-delay: -2s;
+}
+
+/* Grid de puntos */
+.dot-grid {
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(rgba(10,191,188,0.12) 1px, transparent 1px);
+  background-size: 32px 32px;
+  pointer-events: none;
+}
+
+/* Glassmorphism */
+.glass-card {
+  background: rgba(255,255,255,0.80);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.75);
+  border-radius: 18px;
+  box-shadow: 0 16px 48px rgba(10,191,188,0.10), 0 4px 16px rgba(0,0,0,0.06);
+  transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.4s ease;
+}
+
+.glass-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 24px 64px rgba(10,191,188,0.18), 0 8px 24px rgba(0,0,0,0.08);
+}
+
+/* Botón dorado con shimmer */
+.btn-gold {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #A87800, #F5C842);
+  color: white;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.btn-gold::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  animation: shimmer 2s infinite;
+}
+
+.btn-gold:hover {
+  opacity: 0.92;
+}
+
+/* Animaciones */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) scale(1); }
+  50% { transform: translateY(-30px) scale(1.05); }
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 200%; }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 10px rgba(212,160,23,0.4); }
+  50% { box-shadow: 0 0 30px rgba(212,160,23,0.8), 0 0 60px rgba(212,160,23,0.3); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+@keyframes bounce-soft {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+.blink { animation: blink 1.5s ease-in-out infinite; }
+.bounce-soft { animation: bounce-soft 2s ease-in-out infinite; }
+
+/* Bordes superiores de color */
+.border-top-gold { border-top: 3px solid; border-image: linear-gradient(90deg, #A87800, #F5C842) 1; }
+.border-top-turq { border-top: 3px solid; border-image: linear-gradient(90deg, #0ABFBC, #22D3EE) 1; }
+.border-top-purple { border-top: 3px solid; border-image: linear-gradient(90deg, #7C3AED, #A78BFA) 1; }
+.border-top-green { border-top: 3px solid; border-image: linear-gradient(90deg, #059669, #34D399) 1; }
+
+/* Live dot */
+.live-dot {
+  width: 8px;
+  height: 8px;
+  background: #22c55e;
+  border-radius: 50%;
+  animation: blink 1.5s ease-in-out infinite;
 }
